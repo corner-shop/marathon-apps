@@ -1,0 +1,83 @@
+{
+  "id": "/tick/cadvisor",
+  "cmd": "cadvisor -storage_driver=influxdb  -storage_driver_host=influxdb-api.service.tinc-core-vpn:80 -storage_driver_user=root -storage_driver_password=root  -storage_driver_db=cadvisor",
+  "cpus": 0.01,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "constraints": [
+    [
+      "hostname",
+      "UNIQUE"
+    ]
+  ],
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/rootfs",
+        "hostPath": "/",
+        "mode": "RO"
+      },
+      {
+        "containerPath": "/var/run",
+        "hostPath": "/var/run",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "/sys",
+        "hostPath": "/sys",
+        "mode": "RO"
+      },
+      {
+        "containerPath": "/var/lib/docker",
+        "hostPath": "/var/lib/docker",
+        "mode": "RO"
+      }
+    ],
+    "docker": {
+      "image": "google/cadvisor",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 0,
+          "servicePort": 10017,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "privileged": false,
+      "parameters": [
+        {
+          "key": "device",
+          "value": "/dev/zfs:/dev/zfs"
+        }
+      ],
+      "forcePullImage": false
+    }
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "path": "/metrics",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
+    }
+  ],
+  "portDefinitions": [
+    {
+      "port": 10017,
+      "protocol": "tcp",
+      "name": "default",
+      "labels": {}
+    }
+  ]
+}
