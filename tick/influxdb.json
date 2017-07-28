@@ -49,7 +49,6 @@
     }
   },
   "env": {
-    "PRE_CREATE_DB": "cadvisor;graphite;telegraf",
     "GRAPHITE_DB": "graphite",
     "GRAPHITE_BINDING": ":2003",
     "GRAPHITE_PROTOCOL": "tcp"
