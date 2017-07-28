@@ -12,7 +12,7 @@
     "type": "DOCKER",
     "volumes": [
       {
-        "containerPath": "/var/lib/influxdb",
+        "containerPath": "/data",
         "hostPath": "/data/sync-service/folders/tick/influxdb",
         "mode": "RW"
       }
@@ -50,7 +50,9 @@
   },
   "env": {
     "PRE_CREATE_DB": "cadvisor;graphite",
-    "GRAPHITE_DB": "graphite"
+    "GRAPHITE_DB": "graphite",
+    "GRAPHITE_BINDING": ":2003",
+    "GRAPHITE_PROTOCOL": "tcp"
   },
   "labels": {
     "HAPROXY_0_GROUP": "external",
