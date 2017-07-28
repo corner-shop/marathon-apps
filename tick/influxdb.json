@@ -4,7 +4,7 @@
   "cpus": 0.01,
   "mem": 1024,
   "disk": 0,
-  "instances": 1,
+  "instances": 0,
   "acceptedResourceRoles": [
     "*"
   ],
@@ -49,7 +49,7 @@
     }
   },
   "env": {
-    "PRE_CREATE_DB": "cadvisor;graphite",
+    "PRE_CREATE_DB": "cadvisor;graphite;telegraf",
     "GRAPHITE_DB": "graphite",
     "GRAPHITE_BINDING": ":2003",
     "GRAPHITE_PROTOCOL": "tcp"
@@ -60,27 +60,5 @@
     "HAPROXY_1_VHOST": "influxdb-admin.service.tinc-core-vpn",
     "HAPROXY_0_VHOST": "influxdb-api.service.tinc-core-vpn"
   },
-  "portDefinitions": [
-    {
-      "port": 10005,
-      "protocol": "tcp",
-      "name": "default",
-      "labels": {}
-    },
-    {
-      "port": 10018,
-      "protocol": "tcp",
-      "labels": {}
-    },
-    {
-      "port": 10020,
-      "protocol": "tcp",
-      "labels": {}
-    },
-    {
-      "port": 0,
-      "protocol": "tcp",
-      "labels": {}
-    }
-  ]
+  "healthChecks": []
 }
