@@ -1,0 +1,74 @@
+{
+  "id": "/s3-gateway/minio",
+  "cmd": "minio server /home/shared",
+  "cpus": 0.01,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "constraints": [
+    [
+      "hostname",
+      "LIKE",
+      "toaster.tinc-core-vpn"
+    ]
+  ],
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/home/shared",
+        "hostPath": "/data/sync-service/folders/s3-gateway-service/minio/shared",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "/root/.minio",
+        "hostPath": "/data/sync-service/folders/s3-gateway-service/minio/config",
+        "mode": "RW"
+      }
+    ],
+    "docker": {
+      "image": "minio/minio",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 9000,
+          "hostPort": 0,
+          "servicePort": 10003,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "MINIO_ACCESS_KEY": "9nmjckj8732jkas",
+    "MINIO_SECRET_KEY": "msjwqe824jkcjks09234"
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "protocol": "TCP"
+    }
+  ],
+  "labels": {
+    "HAPROXY_0_GROUP": "external",
+    "HAPROXY_0_VHOST": "filestore.service.tinc-core-vpn"
+  },
+  "portDefinitions": [
+    {
+      "port": 10003,
+      "protocol": "tcp",
+      "labels": {}
+    }
+  ]
+}
