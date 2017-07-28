@@ -1,0 +1,74 @@
+{
+  "id": "/tick/grafana",
+  "cmd": null,
+  "cpus": 0.02,
+  "mem": 256,
+  "disk": 0,
+  "instances": 1,
+  "constraints": [
+    [
+      "hostname",
+      "CLUSTER",
+      "toaster.tinc-core-vpn"
+    ]
+  ],
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "container": {
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "grafana",
+        "hostPath": "/data/tick/grafana/",
+        "mode": "RW"
+      }
+    ],
+    "docker": {
+      "image": "grafana/grafana",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 0,
+          "servicePort": 10019,
+          "protocol": "tcp",
+          "labels": {}
+        }
+      ],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "INFLUXDB_HOST": "influxdb-api.service.tinc-core-vpn",
+    "INFLUXDB_PORT": "80",
+    "INFLUXDB_USER": "root",
+    "INFLUXDB_PASS": "root"
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "path": "/",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
+    }
+  ],
+  "labels": {
+    "HAPROXY_0_VHOST": "grafana.service.tinc-core-vpn",
+    "HAPROXY_0_GROUP": "external"
+  },
+  "portDefinitions": [
+    {
+      "port": 10019,
+      "protocol": "tcp",
+      "name": "default",
+      "labels": {}
+    }
+  ]
+}
