@@ -1,0 +1,19 @@
+{
+  "id": "/tick/collectd-docker",
+  "cmd": "docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock  -e GRAPHITE_HOST=169.254.100.19 -e GRAPHITE_PORT=31006 -e COLLECTD_HOST=`hostname`    bobrik/collectd-docker",
+  "cpus": 0.01,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "portDefinitions": [
+    {
+      "port": 10021,
+      "protocol": "tcp",
+      "name": "default",
+      "labels": {}
+    }
+  ]
+}
