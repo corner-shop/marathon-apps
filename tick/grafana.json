@@ -19,13 +19,23 @@
     "type": "DOCKER",
     "volumes": [
       {
-        "containerPath": "grafana",
-        "hostPath": "/data/tick/grafana/",
+        "containerPath": "/var/lib/grafana",
+        "hostPath": "/data/sync-service/folders/tick/grafana/data",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "/var/log/grafana",
+        "hostPath": "/data/sync-service/folders/tick/grafana/log",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "/etc/grafana/",
+        "hostPath": "/data/sync-service/folders/tick/grafana/etc",
         "mode": "RW"
       }
     ],
     "docker": {
-      "image": "grafana/grafana",
+      "image": "grafana/grafana:5.0.0",
       "network": "BRIDGE",
       "portMappings": [
         {
