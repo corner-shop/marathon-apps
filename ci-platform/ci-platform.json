@@ -67,7 +67,7 @@
   },
   "env": {
     "JAVA_OPTS": " -Djava.awt.headless=true ",
-    "JENKINS_MESOS_LIBPROCESS_ADVERTISE_IP": "169.254.100.19",
+    "JENKINS_MESOS_LIBPROCESS_ADVERTISE_IP": "169.254.0.20",
     "JENKINS_HOME": "/var/lib/jenkins",
     "JENKINS_MESOS_LIBPROCESS_ADVERTISE_PORT": "31004",
     "TEMPURL": "http://tempurl-endpoint.service.tinc-core-vpn/api?tempurl=jenkins_config_yml_local"
