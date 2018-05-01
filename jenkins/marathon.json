@@ -5,7 +5,7 @@
   "instances": 1,
   "env": {
       "JENKINS_AGENT_ROLE": "*",
-      "JENKINS_AGENT_USER": "root",
+      "JENKINS_AGENT_USER": "mesos",
       "JENKINS_SLAVE_AGENT_PORT": "50000",
       "JENKINS_FRAMEWORK_NAME": "jenkins",
       "JENKINS_CONTEXT": "/service/jenkins",
