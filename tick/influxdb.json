@@ -54,8 +54,8 @@
     "GRAPHITE_PROTOCOL": "tcp"
   },
   "labels": {
-    "HAPROXY_0_GROUP": "external",
-    "HAPROXY_1_GROUP": "external",
+    "HAPROXY_0_GROUP": "internal",
+    "HAPROXY_1_GROUP": "internal",
     "HAPROXY_1_VHOST": "influxdb-admin.service.tinc-core-vpn",
     "HAPROXY_0_VHOST": "influxdb-api.service.tinc-core-vpn"
   },

@@ -57,7 +57,7 @@
   ],
   "labels": {
     "HAPROXY_0_REDIRECT_TO_HTTPS": "false",
-    "HAPROXY_GROUP": "external",
+    "HAPROXY_GROUP": "internal",
     "MARATHON_SINGLE_INSTANCE_APP": "true",
     "HAPROXY_0_VHOST": "jenkins.marathon.mesos"
   },

@@ -40,7 +40,7 @@
   ],
   "labels": {
     "role": "docker-registry",
-    "HAPROXY_0_GROUP": "external",
+    "HAPROXY_0_GROUP": "internal",
     "HAPROXY_0_VHOST": "docker-registry.service.tinc-core-vpn"
   },
   "portDefinitions": [

@@ -61,7 +61,7 @@
     }
   ],
   "labels": {
-    "HAPROXY_0_GROUP": "external",
+    "HAPROXY_0_GROUP": "internal",
     "HAPROXY_0_VHOST": "filestore.service.tinc-core-vpn"
   },
   "portDefinitions": [
