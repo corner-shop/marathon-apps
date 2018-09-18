@@ -16,7 +16,13 @@
       "parameters": [],
       "privileged": false
     },
-    "volumes": [],
+    "volumes": [
+      {
+        "containerPath": "/var/lib/postgresql/data",
+        "hostPath": "/data/sync-service/folders/sentry/postgres/data",
+        "mode": "RW"
+      }
+    ],
     "portMappings": [
       {
         "containerPort": 5432,
