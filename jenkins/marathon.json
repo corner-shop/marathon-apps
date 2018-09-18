@@ -1,64 +1,82 @@
 {
-  "id": "jenkins",
+  "id": "/jenkins",
+  "cmd": null,
   "cpus": 0.01,
   "mem": 2048,
+  "disk": 0,
   "instances": 1,
-  "env": {
-      "JENKINS_AGENT_ROLE": "*",
-      "JENKINS_AGENT_USER": "mesos",
-      "JENKINS_SLAVE_AGENT_PORT": "50000",
-      "JENKINS_FRAMEWORK_NAME": "jenkins",
-      "JENKINS_CONTEXT": "/service/jenkins",
-      "JENKINS_MESOS_MASTER": "leader.mesos:5050",
-      "JENKINS_ROOT_URL": "http://jenkins.service.tinc-core-vpn/service/jenkins",
-      "JVM_OPTS": "-Xms1024m -Xmx1024m",
-      "JENKINS_OPTS": "",
-      "SSH_KNOWN_HOSTS": ""
-  },
-  "portDefinitions": [
-      {"port": 0, "protocol": "tcp", "name": "nginx"},
-      {"port": 0, "protocol": "tcp", "name": "jenkins"}
+  "acceptedResourceRoles": [
+    "*"
   ],
   "container": {
-       "type": "DOCKER",
-       "docker": {
-           "image": "mesosphere/jenkins:3.5.0-2.107.2",
-           "network" : "HOST"
-       },
-       "volumes": [
-           {
-               "containerPath": "/var/jenkins_home",
-               "hostPath": "/data/sync-service/folders/jenkins/var-jenkins",
-               "mode": "RW"
-           },
-           {
-               "containerPath": "/var/log/nginx",
-               "hostPath": "/data/sync-service/folders/jenkins/var-log-nginx",
-               "mode": "RW"
-           }
-       ]
-   },
-   "acceptedResourceRoles": [ "*" ],
-   "healthChecks": [
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/var/jenkins_home",
+        "hostPath": "/data/sync-service/folders/jenkins/var-jenkins",
+        "mode": "RW"
+      },
+      {
+        "containerPath": "/var/log/nginx",
+        "hostPath": "/data/sync-service/folders/jenkins/var-log-nginx",
+        "mode": "RW"
+      }
+    ],
+    "docker": {
+      "image": "mesosphere/jenkins:3.5.0-2.107.2",
+      "network": "HOST",
+      "portMappings": [],
+      "privileged": false,
+      "parameters": [],
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "SSH_KNOWN_HOSTS": "",
+    "JENKINS_CONTEXT": "/service/jenkins",
+    "JENKINS_SLAVE_AGENT_PORT": "50000",
+    "JENKINS_AGENT_ROLE": "*",
+    "JVM_OPTS": "-Xms1024m -Xmx1024m",
+    "JENKINS_ROOT_URL": "http://jenkins.marathon.mesos/service/jenkins",
+    "JENKINS_MESOS_MASTER": "zk://leader.mesos:2181/mesos",
+    "JENKINS_AGENT_USER": "mesos",
+    "JENKINS_OPTS": "",
+    "JENKINS_FRAMEWORK_NAME": "jenkins"
+  },
+  "healthChecks": [
     {
-      "path": "/service/jenkins",
-      "portIndex": 0,
-      "protocol": "HTTP",
       "gracePeriodSeconds": 30,
       "intervalSeconds": 60,
       "timeoutSeconds": 20,
-      "maxConsecutiveFailures": 3
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "path": "/service/jenkins",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
     }
   ],
   "labels": {
-    "HAPROXY_GROUP":"external",
-    "HAPROXY_0_VHOST":"jenkins.service.tinc-core-vpn",
     "HAPROXY_0_REDIRECT_TO_HTTPS": "false",
-    "MARATHON_SINGLE_INSTANCE_APP": "true"
+    "HAPROXY_GROUP": "external",
+    "MARATHON_SINGLE_INSTANCE_APP": "true",
+    "HAPROXY_0_VHOST": "jenkins.marathon.mesos"
   },
-  "upgradeStrategy":{
+  "portDefinitions": [
+    {
+      "port": 10005,
+      "protocol": "tcp",
+      "name": "nginx",
+      "labels": {}
+    },
+    {
+      "port": 10008,
+      "protocol": "tcp",
+      "name": "jenkins",
+      "labels": {}
+    }
+  ],
+  "upgradeStrategy": {
     "minimumHealthCapacity": 0,
-    "maximumOverCapacity": 0,
-  "constraints": [["hostname", "LIKE", "toaster.tinc-core-vpn"]]
+    "maximumOverCapacity": 0
   }
 }

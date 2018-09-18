@@ -1,0 +1,41 @@
+{
+  "id": "/sentry/postgres",
+  "cmd": null,
+  "cpus": 0.01,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "forcePullImage": false,
+      "image": "postgres",
+      "parameters": [],
+      "privileged": false
+    },
+    "volumes": [],
+    "portMappings": [
+      {
+        "containerPort": 5432,
+        "hostPort": 0,
+        "labels": {},
+        "name": "default",
+        "protocol": "tcp",
+        "servicePort": 10001
+      }
+    ]
+  },
+  "env": {
+    "POSTGRES_PASSWORD": "secret",
+    "POSTGRES_USER": "sentry"
+  },
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "portDefinitions": []
+}
