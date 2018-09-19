@@ -1,0 +1,26 @@
+{
+  "id": "/jenkins/worker",
+  "cmd": "/run/current-system/sw/bin/java -jar agent.jar -jnlpUrl http://server-jenkins.marathon.mesos/computer/worker/slave-agent.jnlp",
+  "cpus": 0.01,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "acceptedResourceRoles": [
+      "*"
+    ],
+  "portDefinitions": [
+      {
+            "port": 10009,
+            "name": "default",
+            "protocol": "tcp"
+          }
+    ],
+  "fetch": [
+      {
+            "uri": "http://server-jenkins.marathon.mesos/jnlpJars/agent.jar",
+            "extract": false,
+            "executable": false,
+            "cache": false
+          }
+    ]
+}
