@@ -38,6 +38,11 @@
     "POSTGRES_PASSWORD": "secret",
     "POSTGRES_USER": "sentry"
   },
+  "labels": {
+    "HAPROXY_0_GROUP": "internal",
+    "HAPROXY_0_PORT": "9126",
+    "HAPROXY_0_MODE": "tcp"
+  },
   "networks": [
     {
       "mode": "container/bridge"

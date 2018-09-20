@@ -1,18 +1,36 @@
 {
   "id": "/sentry/worker",
-  "cmd": "docker run --rm -e SENTRY_SECRET_KEY='ul9j2sdsvdt_*9mp&hl_mc6*4&7kklj=xhj1kfv=p(75u4=q=' -e SENTRY_REDIS_PORT=`dig _redis.sentry._tcp.marathon.mesos SRV | grep -A1 'ANSWER SECTION' | cut -f5 -d ' ' | tail -1` -e SENTRY_REDIS_HOST=`host redis.sentry.marathon.mesos | cut -f 4 -d ' '` -e SENTRY_POSTGRES_HOST=`host postgres.sentry.marathon.mesos | cut -f 4 -d ' '` -e SENTRY_POSTGRES_PORT=`dig _postgres.sentry._tcp.marathon.mesos SRV | grep -A1 'ANSWER SECTION' | cut -f5 -d ' ' | tail -1` -e SENTRY_DB_NAME=postgres -e SENTRY_DB_USER=sentry -e SENTRY_DB_PASSWORD=secret sentry run worker",
-  "cpus": 0.01,
+  "cpus": 0.1,
+  "cmd": "/entrypoint.sh run worker",
   "mem": 128,
   "disk": 0,
-  "instances": 3,
+  "instances": 1,
   "acceptedResourceRoles": [
     "*"
   ],
-  "portDefinitions": [
-    {
-      "port": 10007,
-      "name": "default",
-      "protocol": "tcp"
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "forcePullImage": true,
+      "image": "sentry",
+      "parameters": [],
+      "privileged": false
     }
-  ]
+  },
+  "env": {
+    "SENTRY_POSTGRES_HOST": "postgres-sentry.marathon.mesos",
+    "SENTRY_DB_USER": "sentry",
+    "SENTRY_DB_NAME": "postgres",
+    "SENTRY_SECRET_KEY": "ul9j2sdsvdt_*9mp&hl_mc6*4&7kklj=xhj1kfv=p(75u4=q=",
+    "SENTRY_REDIS_HOST": "redis-sentry.marathon.mesos",
+    "SENTRY_POSTGRES_PORT": "9126",
+    "SENTRY_REDIS_PORT": "9125",
+    "SENTRY_DB_PASSWORD": "secret"
+  },
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "portDefinitions": []
 }

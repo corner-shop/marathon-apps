@@ -27,6 +27,11 @@
       }
     ]
   },
+  "labels": {
+    "HAPROXY_0_GROUP": "internal",
+    "HAPROXY_0_MODE": "tcp",
+    "HAPROXY_0_PORT": "9125"
+  },
   "networks": [
     {
       "mode": "container/bridge"
