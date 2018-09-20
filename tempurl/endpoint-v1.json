@@ -39,7 +39,7 @@
   ],
   "env": {
     "REDIS_HOST": "redis-tempurl.marathon.mesos",
-    "REDIS_PORT": "31000"
+    "REDIS_PORT": "9124"
   },
   "healthChecks": [
     {
