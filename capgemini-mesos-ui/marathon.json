@@ -1,0 +1,45 @@
+
+{
+  "id": "mesos-ui",
+  "instances": 1,
+  "cpus": 0.01,
+  "mem": 512,
+  "env": {
+    "ZOOKEEPER_ADDRESS": "mesos-zk-01.core-vpn:2181,mesos-zk-02.core-vpn:2181,mesos-zk-03.core-vpn:2181"
+  },
+  "labels": {
+    "HAPROXY_0_REDIRECT_TO_HTTPS": "false",
+    "HAPROXY_GROUP": "internal",
+    "HAPROXY_0_VHOST": "mesos-ui.marathon.mesos"
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 120,
+      "intervalSeconds": 15,
+      "maxConsecutiveFailures": 10,
+      "path": "/",
+      "portIndex": 0,
+      "protocol": "HTTP",
+      "timeoutSeconds": 5
+    }
+  ],
+  "upgradeStrategy": {
+    "maximumOverCapacity": 0,
+    "minimumHealthCapacity": 0
+  },
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "capgemini/mesos-ui:standalone-latest",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 0,
+          "hostPort": 0,
+          "servicePort": 5000,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  }
+}
