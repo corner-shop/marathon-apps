@@ -1,0 +1,34 @@
+{
+  "id": "/syslog",
+  "cmd": null,
+  "cpus": 0.01,
+  "mem": 128,
+  "disk": 0,
+  "instances": 1,
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "forcePullImage": true,
+      "image": "rsyslog/syslog_appliance_alpine",
+      "parameters": [],
+      "privileged": false
+    },
+    "volumes": [
+      {
+        "containerPath": "/logs",
+        "hostPath": "/data/sync-service/folders/syslog",
+        "mode": "RW"
+      }
+    ]
+  },
+  "portDefinitions": [
+    {
+      "port": 10012,
+      "name": "default",
+      "protocol": "tcp"
+    }
+  ]
+}
