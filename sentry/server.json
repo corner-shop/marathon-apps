@@ -1,7 +1,7 @@
 {
   "id": "/sentry/server",
   "cpus": 0.1,
-  "mem": 128,
+  "mem": 256,
   "disk": 0,
   "instances": 1,
   "acceptedResourceRoles": [
