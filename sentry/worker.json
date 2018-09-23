@@ -25,7 +25,8 @@
     "SENTRY_REDIS_HOST": "redis-sentry.marathon.mesos",
     "SENTRY_POSTGRES_PORT": "9126",
     "SENTRY_REDIS_PORT": "9125",
-    "SENTRY_DB_PASSWORD": "secret"
+    "SENTRY_DB_PASSWORD": "secret",
+    "TINI_SUBREAPER": "true"
   },
   "networks": [
     {
